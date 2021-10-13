@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/04 15:16:29 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 11:00:44 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/13 12:15:41 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	philosophers_start(t_program *program)
 		current_time = time_get_micro();
 		while (i < program->philo_amount)
 		{
+			program->turn = i;
 			if (p_array[i]->time_of_death < current_time)
 			{
 				p_array[i]->status = S_DEAD;

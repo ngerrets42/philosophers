@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/04 15:17:18 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 10:54:34 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/13 12:45:41 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ typedef enum e_status
 	S_EATING,
 	S_SLEEPING,
 	S_THINKING,
-	S_DEAD
+	S_DEAD,
+	S_NONE
 }	t_status;
 
 typedef struct s_philo
 {
 	pthread_t		thread;
 	t_program		*program;
-	id_t			index;
+	int				index;
 	int				fork_has;
 	pthread_mutex_t	fork_mutex;
 	t_status		status;

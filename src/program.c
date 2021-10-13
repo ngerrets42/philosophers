@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/23 11:22:01 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 10:57:54 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/13 11:51:25 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static t_program	*_program_init(void)
 	program = malloc(sizeof(t_program));
 	if (program == NULL)
 		return (NULL);
+	program->turn = 0;
 	program->eat_amount = 0;
 	program->philo_amount = 0;
 	program->time_to_die = 0;

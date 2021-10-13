@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/13 08:19:21 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 10:55:08 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/13 12:45:50 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_philo	*philosopher_create(t_program *program, int index)
 	philo->time_of_death = program->start_time + program->time_to_die;
 	philo->time_of_action = program->start_time;
 	philo->program = program;
-	philo->status = S_THINKING;
+	philo->status = S_NONE;
 	philo->neighbour = NULL;
 	philo->fork_has = 1;
 	philo->index = index;

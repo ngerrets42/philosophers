@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/23 11:22:12 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 10:57:47 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/13 11:51:15 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct s_program
 {
 	int				philo_amount;
+	int				turn;
 	unsigned long	time_to_die;
 	unsigned long	time_to_eat;
 	unsigned long	time_to_sleep;
