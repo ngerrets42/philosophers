@@ -6,12 +6,13 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/23 11:18:19 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/04 15:16:27 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/13 09:13:53 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "program.h"
+#include "philosophers.h"
 
 static int	_program_print(t_program *program)
 {
@@ -27,6 +28,9 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 	{
+		//REMOVE
+		printf("amount_of_philo die eat sleep [times_eat]\n");
+		// -
 		printf("Wrong numbers of arguments. 5 Minimum, 6 maximum!\n");
 		return (1);
 	}

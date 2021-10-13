@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/23 11:22:12 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/04 15:13:42 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/13 10:57:47 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,19 @@
 
 typedef struct s_program
 {
-	int	philo_amount;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	eat_amount;
-}		t_program;
+	int				philo_amount;
+	unsigned long	time_to_die;
+	unsigned long	time_to_eat;
+	unsigned long	time_to_sleep;
+	int				eat_amount;
+	unsigned long	start_time;
+}					t_program;
 
-t_program	*program_get(void);
-t_program	*program_parse(int argc, char **argv);
-void		program_destroy(void);
+t_program		*program_get(void);
+t_program		*program_parse(int argc, char **argv);
+void			program_destroy(void);
+unsigned long	time_get_micro(void);
 
-int			parse_int(char *str);
+int				parse_int(char *str);
 
 #endif

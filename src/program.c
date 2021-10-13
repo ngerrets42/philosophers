@@ -6,11 +6,20 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/23 11:22:01 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/04 15:14:52 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/13 10:57:54 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "program.h"
+#include <sys/time.h>
+
+unsigned long	time_get_micro(void)
+{
+	struct timeval	val;
+
+	gettimeofday(&val, NULL);
+	return (val.tv_sec * 1000000 + val.tv_usec);
+}
 
 static t_program	*_program_init(void)
 {
@@ -47,10 +56,11 @@ t_program	*program_parse(int argc, char **argv)
 	program = program_get();
 	if (program == NULL)
 		return (NULL);
+	program->start_time = time_get_micro();
 	program->philo_amount = parse_int(argv[1]);
-	program->time_to_die = parse_int(argv[2]);
-	program->time_to_eat = parse_int(argv[3]);
-	program->time_to_sleep = parse_int(argv[4]);
+	program->time_to_die = parse_int(argv[2]) * 1000;
+	program->time_to_eat = parse_int(argv[3]) * 1000;
+	program->time_to_sleep = parse_int(argv[4]) * 1000;
 	program->eat_amount = -1;
 	if (argc == 6)
 		program->eat_amount = parse_int(argv[5]);
