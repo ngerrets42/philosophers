@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/04 15:17:18 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 12:45:41 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/20 15:55:58 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include "program.h"
 # include <pthread.h>
+
+# define STANDARD_SLEEP_TIME 10000
+
+typedef struct s_queue
+{
+	struct s_queue	*next;
+}		t_queue;
 
 typedef enum e_status
 {
@@ -25,17 +32,25 @@ typedef enum e_status
 	S_NONE
 }	t_status;
 
+typedef enum e_msg
+{
+	MSG_EATING,
+	MSG_SLEEPING,
+	MSG_THINKING,
+	MSG_DEATH,
+	MSG_LAST
+}	t_msg;
+
 typedef struct s_philo
 {
 	pthread_t		thread;
 	t_program		*program;
 	int				index;
-	int				fork_has;
 	pthread_mutex_t	fork_mutex;
 	t_status		status;
 	struct s_philo	*neighbour;
 	unsigned long	time_of_death;
-	unsigned long	time_of_action;
+	int				times_eaten;
 }					t_philo;
 
 
@@ -45,6 +60,7 @@ void	philosophers_start(t_program *program);
 
 void	*philo_thread(void *arg);
 
-void	message_status(t_philo *me);
+void	putstr(char *str);
+void	message_status(t_philo *me, t_msg msg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/13 08:19:21 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 12:45:50 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/20 15:56:56 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ t_philo	*philosopher_create(t_program *program, int index)
 		return (NULL);
 	}
 	philo->time_of_death = program->start_time + program->time_to_die;
-	philo->time_of_action = program->start_time;
 	philo->program = program;
-	philo->status = S_NONE;
+	philo->status = S_THINKING;
+	philo->times_eaten = 0;
 	philo->neighbour = NULL;
-	philo->fork_has = 1;
 	philo->index = index;
 	if (pthread_create(&(philo->thread), NULL, philo_thread, philo) != 0)
 	{

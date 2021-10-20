@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/04 15:16:29 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 12:15:41 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/20 15:54:37 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,6 @@ t_status	*_status_array(int amount)
 	return (s_array);
 }
 
-#include <stdio.h>
-void	_show_status(t_philo *philo, t_status **s_array, int i)
-{
-	static char	*str[S_DEAD + 1] =
-	{
-		[S_EATING] = "eating",
-		[S_SLEEPING] = "sleeping",
-		[S_THINKING] = "thinking",
-		[S_DEAD] = "dead"
-	};
-
-	if (philo->status != (*s_array)[i])
-	{
-		printf("[%d] is now %s\n", philo->index + 1, str[philo->status]);
-		(*s_array)[i] = philo->status;
-	}
-}
-
 void	philosophers_start(t_program *program)
 {
 	t_philo		**p_array;
@@ -109,8 +91,15 @@ void	philosophers_start(t_program *program)
 			program->turn = i;
 			if (p_array[i]->time_of_death < current_time)
 			{
-				p_array[i]->status = S_DEAD;
-				message_status(p_array[i]);
+				//p_array[i]->status = S_DEAD;
+				message_status(p_array[i], MSG_DEATH);
+				exit(1);
+				free(s_array);
+				_structs_destroy(p_array, program->philo_amount);
+				return ;
+			}
+			if (program->eat_amount > 0 && p_array[i]->times_eaten >= program->eat_amount)
+			{
 				free(s_array);
 				_structs_destroy(p_array, program->philo_amount);
 				return ;

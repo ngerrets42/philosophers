@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/23 11:22:01 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 11:51:25 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/20 15:57:55 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_program	*program_get(void)
 	{
 		program = _program_init();
 		if (program == NULL)
-			error(ERR_MALLOC);
+			return (NULL);
 	}
 	return (program);
 }
