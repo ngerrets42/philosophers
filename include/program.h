@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/23 11:22:12 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/13 11:51:15 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/27 13:07:39 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stddef.h>
 # include <stdlib.h>
-# include "nerror.h"
+# include "str.h"
 
 typedef struct s_program
 {

@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/23 11:18:19 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/20 15:55:07 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/27 13:56:38 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 	{
-		//REMOVE
-		printf("amount_of_philo die eat sleep [times_eat]\n");
-		printf("Wrong numbers of arguments. 5 Minimum, 6 maximum!\n");
+		putstr("Wrong numbers of arguments. 5 Minimum, 6 maximum! Format:\n");
+		putstr("	./philo amount_of_philo die eat sleep [times_to_eat]\n");
 		return (1);
 	}
 	program = program_parse(argc, argv);
-	// _program_print(program);
 	philosophers_start(program);
+	putstr("back in main thread\n");
 	program_destroy();
 	return (0);
 }

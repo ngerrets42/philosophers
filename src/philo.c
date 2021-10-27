@@ -6,12 +6,11 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/13 08:39:58 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/20 15:53:56 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/27 14:06:06 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <sys/time.h>
 
 static void	sleep_for(unsigned long ms)
 {
@@ -50,7 +49,7 @@ static void	_go_eat(t_philo *me)
 {
 	if (me->neighbour == NULL)
 		while (1)
-		;
+			;
 	pthread_mutex_lock(&(me->fork_mutex));
 	pthread_mutex_lock(&(me->neighbour->fork_mutex));
 	me->time_of_death = time_get_micro() + me->program->time_to_die;
@@ -69,24 +68,25 @@ static void	_go_think(t_philo *me)
 void	*philo_thread(void *arg)
 {
 	t_philo	*me;
-	
+
 	me = (t_philo *)arg;
 	message_status(me, MSG_THINKING);
 	usleep(1000);
 	if (me->index % 2 == 1)
 		usleep(1000);
-	while (1)
+	while (me->kill == 0)
 	{
-		if (me->status == S_DEAD)
-			return (NULL);
-		else if (me->status == S_EATING)
+		if (me->status == S_EATING)
 			_go_sleep(me);
 		else if (me->status == S_SLEEPING)
 			_go_think(me);
 		else if (me->status == S_THINKING)
 			_go_eat(me);
-		else
-			return (NULL);
+	}
+	if (me->status == S_EATING)
+	{
+		pthread_mutex_unlock(&(me->fork_mutex));
+		pthread_mutex_unlock(&(me->neighbour->fork_mutex));
 	}
 	return (NULL);
 }

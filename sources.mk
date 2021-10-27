@@ -1,6 +1,5 @@
 SOURCES :=	src/main.c \
 	src/msg.c \
-	src/parsing.c \
 	src/philo.c \
 	src/philo_functions.c \
 	src/philosophers.c \

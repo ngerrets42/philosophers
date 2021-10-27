@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/13 09:40:43 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/20 16:00:04 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/27 14:12:23 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,26 @@ void	putstr(char *str)
 	write(STDOUT_FILENO, str, l * sizeof(char));
 }
 
+void	_putstr_free(char *str)
+{
+	putstr(str);
+	free(str);
+}
+
+void	_putmsg(char *time, char *index, char *msg)
+{
+	putstr("[");
+	_putstr_free(time);
+	putstr("] Philosopher ");
+	_putstr_free(index);
+	putstr(msg);
+}
+
 void	message_status(t_philo *me, t_msg msg)
 {
 	static int				init = 1;
 	static pthread_mutex_t	lock;
-	unsigned long			current_time_micro;
+	static int				death = 0;
 	static char				*str[MSG_LAST] =
 	{
 		[MSG_EATING] = " is now eating. (HAS GRABBED FORKS)\n",
@@ -39,12 +54,12 @@ void	message_status(t_philo *me, t_msg msg)
 
 	if (init != 0)
 		init = pthread_mutex_init(&lock, NULL);
+	if (death == 1)
+		return ;
 	pthread_mutex_lock(&lock);
-	current_time_micro = time_get_micro() - me->program->start_time;
-	putstr("[");
-	putstr(ft_itoa(current_time_micro / 1000));
-	putstr("] Philosopher ");
-	putstr(ft_itoa(me->index + 1));
-	putstr(str[msg]);
+	_putmsg(ft_itoa((time_get_micro() - me->program->start_time) / 1000),
+		ft_itoa(me->index + 1), str[msg]);
 	pthread_mutex_unlock(&lock);
+	if (msg == MSG_DEATH)
+		death = 1;
 }
