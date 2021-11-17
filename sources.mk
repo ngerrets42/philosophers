@@ -1,8 +1,6 @@
-SOURCES :=	src/main.c \
-	src/msg.c \
-	src/philo.c \
-	src/philo_functions.c \
-	src/philosophers.c \
+SOURCES :=	src/ft_atoi.c \
+	src/main.c \
+	src/parse.c \
 	src/program.c \
-	src/str/ft_atoi.c \
-	src/str/ft_itoa.c \
+	src/str.c \
+	src/time_get.c \

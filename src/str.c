@@ -6,13 +6,13 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/17 11:04:08 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/11/17 11:07:17 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/11/17 11:44:10 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "str.h"
 
-void	putstr(char *str)
+void	putstr(const char *str)
 {
 	int	l;
 

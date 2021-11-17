@@ -6,13 +6,14 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/17 11:07:37 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/11/17 11:29:16 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/11/17 11:44:56 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSPHERS_H
 # define PHILOSPHERS_H
 
+# include <stdlib.h>
 # include "str.h"
 
 # define SUCCESS 0
