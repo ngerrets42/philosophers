@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/04 15:17:18 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/27 13:53:44 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/28 11:07:39 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 {
 	pthread_t		thread;
 	pthread_mutex_t	fork_mutex;
+	pthread_mutex_t	thread_mutex;
 	t_program		*program;
 	int				index;
 	t_status		status;
@@ -61,6 +62,8 @@ t_philo	*philosopher_create(t_program *program, int index);
 int		philosophers_have_eaten(t_philo **philos, t_program *program);
 void	philosophers_start(t_program *program);
 void	*philo_thread(void *arg);
+int		philo_lock(t_philo *philo);
+int		philo_unlock(t_philo *philo);
 void	putstr(char *str);
 void	message_status(t_philo *me, t_msg msg);
 

@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   str.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/17 11:01:24 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/11/17 11:03:01 by ngerrets      ########   odam.nl         */
+/*   Created: 2021/11/17 11:04:08 by ngerrets      #+#    #+#                 */
+/*   Updated: 2021/11/17 11:04:17 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "str.h"
 
-int	main(int argc, char **argv)
+void	putstr(char *str)
 {
-	t_program	*program;
+	int	l;
 
-	if (argc < 5 || argc > 6)
-	{
-		putstr("Wrong numbers of arguments. 5 Minimum, 6 maximum! Format:\n");
-		putstr("	./philo amount_of_philo die eat sleep [times_to_eat]\n");
-		return (1);
-	}
-	
+	l = 0;
+	while (str[l] != '\0')
+		l++;
+	write(STDOUT_FILENO, str, l * sizeof(char));
 }

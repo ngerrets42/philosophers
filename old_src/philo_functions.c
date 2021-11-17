@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/13 08:19:21 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/27 13:53:23 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/28 11:30:33 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ t_philo	*philosopher_create(t_program *program, int index)
 	philo = malloc(sizeof(t_philo));
 	if (philo == NULL)
 		return (NULL);
-	if (pthread_mutex_init(&(philo->fork_mutex), NULL) != 0)
-	{
-		free(philo);
-		return (NULL);
-	}
+	pthread_mutex_init(&(philo->fork_mutex), NULL);
+	pthread_mutex_init(&(philo->thread_mutex), NULL);
+	philo_lock(philo);
 	philo->time_of_death = program->start_time + program->time_to_die;
 	philo->program = program;
 	philo->status = S_THINKING;
@@ -37,6 +35,18 @@ t_philo	*philosopher_create(t_program *program, int index)
 		return (NULL);
 	}
 	return (philo);
+}
+
+int	philo_lock(t_philo *philo)
+{
+	printf("===Attempting lock of philosopher %d\n", philo->index + 1);
+	return (pthread_mutex_lock(&(philo->thread_mutex)));
+}
+
+int	philo_unlock(t_philo *philo)
+{
+	printf("===Unlocking of philosopher %d\n", philo->index + 1);
+	return (pthread_mutex_unlock(&(philo->thread_mutex)));
 }
 
 int	philosophers_have_eaten(t_philo **philos, t_program *program)

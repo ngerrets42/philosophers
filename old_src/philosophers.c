@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/04 15:16:29 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/27 14:05:41 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/10/28 11:28:29 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@ static t_philo	**_philosophers_destroy(t_philo **philos, int i)
 	while (i > 0)
 	{
 		i--;
+		philo_lock(philos[n]);
 		philos[i]->kill = 1;
+		philo_unlock(philos[n]);
 	}
 	while (n > 0)
 	{
 		n--;
 		pthread_join(philos[n]->thread, NULL);
-		///
-		printf("philo %d stopped!\n", philos[n]->index);
 		pthread_mutex_destroy(&(philos[n]->fork_mutex));
+		pthread_mutex_destroy(&(philos[n]->thread_mutex));
 		free(philos[n]);
 	}
 	return (NULL);
@@ -41,6 +42,7 @@ static t_philo	**_philosophers_init(t_program *program)
 	int		i;
 
 	neighbour = NULL;
+	message_status(NULL, 0);
 	philos = malloc(sizeof(t_philo *) * program->philo_amount);
 	if (philos == NULL)
 		return (NULL);
@@ -48,13 +50,16 @@ static t_philo	**_philosophers_init(t_program *program)
 	while (i < program->philo_amount)
 	{
 		philos[i] = philosopher_create(program, i);
-		philos[i]->neighbour = neighbour;
-		neighbour = philos[i];
 		if (philos[i] == NULL)
 			return (_philosophers_destroy(philos, i));
+		philos[i]->neighbour = neighbour;
+		neighbour = philos[i];
+		philo_unlock(philos[i]);
 		i++;
 	}
+	philo_lock(philos[0]);
 	philos[0]->neighbour = philos[i - 1];
+	philo_unlock(philos[0]);
 	return (philos);
 }
 
@@ -68,17 +73,21 @@ static int		_check_if_end(t_program *program, t_philo **philos)
 	while (i < program->philo_amount)
 	{
 		program->turn = i;
+		philo_lock(philos[i]);
 		if (philos[i]->time_of_death < current_time)
 		{
 			message_status(philos[i], MSG_DEATH);
+			philo_unlock(philos[i]);
 			_philosophers_destroy(philos, program->philo_amount);
 			return (1);
 		}
 		if (philosophers_have_eaten(philos, program) == 1)
 		{
+			philo_unlock(philos[i]);
 			_philosophers_destroy(philos, program->philo_amount);
 			return (1);
 		}
+		philo_unlock(philos[i]);
 		i++;
 	}
 	return (0);
