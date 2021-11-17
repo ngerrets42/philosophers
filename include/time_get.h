@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   str.c                                              :+:    :+:            */
+/*   time_get.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/17 11:04:08 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/11/17 11:07:17 by ngerrets      ########   odam.nl         */
+/*   Created: 2021/11/17 11:31:57 by ngerrets      #+#    #+#                 */
+/*   Updated: 2021/11/17 11:37:45 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str.h"
+#ifndef TIME_GET_H
+# define TIME_GET_H
 
-void	putstr(char *str)
-{
-	int	l;
+# include <sys/time.h>
 
-	l = 0;
-	while (str[l] != '\0')
-		l++;
-	write(STDOUT_FILENO, str, l * sizeof(char));
-}
+unsigned long	time_get_msec(void);
+unsigned long	time_get_usec(void);
+unsigned long	time_start_get(void);
+
+#endif

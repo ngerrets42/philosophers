@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   str.c                                              :+:    :+:            */
+/*   str.h                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/17 11:04:08 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/11/17 11:07:17 by ngerrets      ########   odam.nl         */
+/*   Created: 2021/11/17 11:06:18 by ngerrets      #+#    #+#                 */
+/*   Updated: 2021/11/17 11:07:23 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str.h"
+#ifndef STR_H
+# define STR_H
 
-void	putstr(char *str)
-{
-	int	l;
+# include <unistd.h>
 
-	l = 0;
-	while (str[l] != '\0')
-		l++;
-	write(STDOUT_FILENO, str, l * sizeof(char));
-}
+void	putstr(char *str);
+
+#endif

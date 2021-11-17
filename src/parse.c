@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   nerror.h                                           :+:    :+:            */
+/*   parse.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/09/08 11:24:37 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/04 15:05:53 by ngerrets      ########   odam.nl         */
+/*   Created: 2021/11/17 11:13:05 by ngerrets      #+#    #+#                 */
+/*   Updated: 2021/11/17 11:25:16 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NERROR_H
-# define NERROR_H
+#include "philosophers.h"
 
-# define SPECIFIC_ERROR 1
+int	atoi(char *str);
 
-# include <unistd.h>
-# include <stdlib.h>
-
-typedef enum e_error
+int	parse(t_program *program, int argc, char **argv)
 {
-	ERR_MALLOC = 0,
-	ERR_DEFAULT
-}	t_error;
-
-void	error(t_error err);
-
-#endif
+	program->n_philos = atoi(argv[1]);
+	program->time_die = atoi(argv[2]);
+	program->time_eat = atoi(argv[3]);
+	program->time_sleep = atoi(argv[4]);
+	if (argc == 6)
+		program->n_eat = atoi(argv[5]);
+	else
+		program->n_eat = -1;
+	return (SUCCESS);
+}

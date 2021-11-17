@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   str.h                                              :+:    :+:            */
+/*   philosophers.h                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/04 15:10:34 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/15 13:31:37 by ngerrets      ########   odam.nl         */
+/*   Created: 2021/11/17 11:07:37 by ngerrets      #+#    #+#                 */
+/*   Updated: 2021/11/17 11:29:16 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STR_H
-# define STR_H
+#ifndef PHILOSPHERS_H
+# define PHILOSPHERS_H
 
-#include <stddef.h>
-#include <stdlib.h>
+# include "str.h"
 
-int		ft_atoi(const char *str);
-char	*ft_itoa(int n);
+# define SUCCESS 0
+# define FAILURE 1
+
+typedef unsigned long t_ulong;
+
+typedef struct s_program
+{
+	int		n_philos;
+	int		n_eat;
+	t_ulong	time_die;
+	t_ulong	time_eat;
+	t_ulong	time_sleep;
+}			t_program;
+
+t_program	*program_alloc(void);
+int			program_free(t_program *program);
+int			parse(t_program *program, int argc, char **argv);
 
 #endif
