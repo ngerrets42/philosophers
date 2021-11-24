@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/17 11:15:58 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/11/24 11:42:11 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/11/24 14:45:29 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_program	*program_alloc(void)
 	if (program == NULL)
 		return (NULL);
 	pthread_mutex_init(&(program->lock), NULL);
+	program->starttime = time_get_usec();
 	program->philos = NULL;
 	program->n_philos = 0;
 	program->n_eat = 0;

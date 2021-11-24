@@ -6,15 +6,15 @@
 #    By: ngerrets <ngerrets@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/07/15 14:47:03 by ngerrets      #+#    #+#                  #
-#    Updated: 2021/11/17 11:00:05 by ngerrets      ########   odam.nl          #
+#    Updated: 2021/11/24 17:10:25 by ngerrets      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 # For now this is the default Makefile I use for C projects
 # Manually edit:
 NAME := philo
-COMPILE_FLAGS ?= -Wall -Wextra -pthread -g3 -fsanitize=thread
-LINKING_FLAGS ?= -pthread -g3 -fsanitize=thread
+COMPILE_FLAGS ?= -Wall -Wextra -pthread
+LINKING_FLAGS ?= -pthread
 LIBRARIES ?=
 SOURCE_DIRECTORY ?= src
 HEADER_DIRECTORY ?= include

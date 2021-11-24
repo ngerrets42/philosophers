@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/17 11:01:24 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/11/24 10:28:13 by ngerrets      ########   odam.nl         */
+/*   Updated: 2021/11/24 14:54:28 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	}
 	program = program_alloc();
+	message_status(NULL, 0);
 	if (program == NULL)
 		return (1);
 	if (parse(program, argc, argv) == FAILURE)
