@@ -5,87 +5,60 @@
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/26 16:16:11 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/01 13:36:48 by ngerrets      ########   odam.nl         */
+/*   Created: 2022/02/01 16:06:01 by ngerrets      #+#    #+#                 */
+/*   Updated: 2022/02/01 16:57:14 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include "str.h"
-# include "func.h"
-# include "time_get.h"
-# include <pthread.h>
+# include <stddef.h>
+# include <stdlib.h>
+# include <stdbool.h>
 # include <unistd.h>
-# include <stdio.h>
+# include "structs.h"
 
-typedef unsigned long	t_ul;
+/* Other Functions */
 
-typedef enum e_bool
-{
-	FALSE,
-	TRUE
-}			t_bool;
+int				parse_input(t_input *input, int argc, char **argv);
+void			message(t_philo *philo, t_msg msg);
 
-typedef enum e_msg
-{
-	MSG_EATING,
-	MSG_SLEEPING,
-	MSG_THINKING,
-	MSG_DEATH,
-	MSG_FORK_L,
-	MSG_FORK_R,
-	MSG_LAST
-}	t_msg;
+/* Philo Routine Functions */
 
-typedef struct s_philo
-{
-	void			*program;
-	pthread_t		thread;
-	int				index;
-	t_ul			time_eaten;
-	int				numb_eaten;
-	pthread_mutex_t	*fork_l;
-	pthread_mutex_t	*fork_r;
-	
-}					t_philo;
+void			*philo_thread(void *arg);
+void			*monitor_thread(void *arg);
 
-typedef struct s_program
-{
-	pthread_mutex_t	lock;
-	t_bool			death;
-	int				numb_philo;
-	int				times_eaten;
-	int				times_eaten_total;
-	t_ul			time_die;
-	t_ul			time_eat;
-	t_ul			time_sleep;
-	int				numb_eat;
-	t_philo			*philos;
-	pthread_mutex_t *forks;
-}					t_program;
+int				right_index(t_philo *philo);
+int				left_index(t_philo *philo);
 
-/* parse */
-t_bool	parse(t_program *program, int argc, char **argv);
+/* Thread Functions */
 
-/* philo_init */
-t_bool	init(t_program *program);
+void			monitor_threads(t_program *program);
+int				threads_create(t_program *program);
+int				threads_join(t_program *program);
 
-/* philo_thread */
-t_bool	philo_threads_start(t_program *program);
-t_bool	philo_threads_join(t_program *program);
+/* Mutex Functions */
 
-/* philo_func */
-void	philo_usleep(t_philo *p, t_ul usec);
-t_bool	philo_check_death(t_philo *p);
-t_bool	philo_is_done(t_philo *p);
+int				mutexes_init(t_program *program);
+void			mutexes_destroy(t_program *program);
 
-/* philo_loop */
-void	philo_msg_send(t_philo *p, t_msg m);
-void	philo_grab_forks(t_philo *p);
-void	philo_drop_forks(t_philo *p);
-void	philo_eat(t_philo *p);
-void	philo_sleep(t_philo *p);
+/* Time Functions */
+
+void			sleep_for(t_philo *philo, long ms);
+void			philo_wait(t_philo *philo, long ms);
+long			time_difference(struct timeval start);
+struct timeval	time_get(void);
+
+/* Utillity Functions */
+
+int				ft_atoi(char *s);
+char			*ft_itoa(int n);
+void			ft_bzero(void *dst, size_t size);
+int				ft_strcmp(char *a, char *b);
+int				ft_error(char *a, char *b);
+int				ft_perror(char *s);
+void			ft_swap_int(int *a, int *b);
+int				ft_putstr_fd(int fd, char *str);
 
 #endif

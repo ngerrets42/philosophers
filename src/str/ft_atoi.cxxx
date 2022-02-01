@@ -6,11 +6,11 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/24 14:58:49 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/10/04 15:11:38 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/01 16:58:23 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str.h"
+//#include "str.h"
 
 static int	ft_isdigit(int c)
 {

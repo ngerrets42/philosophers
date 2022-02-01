@@ -1,75 +1,94 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   philo_thread.c                                     :+:    :+:            */
+/*   philo_thread.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
+/*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/01/26 17:11:26 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/01 14:17:53 by ngerrets      ########   odam.nl         */
+/*   Created: 2021/06/08 08:59:52 by mraasvel      #+#    #+#                 */
+/*   Updated: 2022/02/01 16:43:34 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	_thread_identify(t_philo p)
+static void	philo_grab_forks(t_philo *philo)
 {
-	printf("HI IM PHILO %d\naddr left: %p\naddr right: %p\n",
-		p.index, p.fork_l, p.fork_r);
+	int	indexes[2];
+	pthread_mutex_t	*forks[2];
+
+	indexes[0] = left_index(philo);
+	indexes[1] = right_index(philo);
+	if (philo->id % 2 == 0)
+		ft_swap_int(&indexes[0], &indexes[1]);
+
+
+	//LEFT FORK
+	forks[0] = &philo->program->forks[indexes[0]];
+	//RIGHT FORK
+	forks[1] = &philo->program->forks[indexes[1]];
+	
+	pthread_mutex_lock(forks[0]);
+	message(philo, MSG_FORK);
+	pthread_mutex_lock(forks[1]);
+	message(philo, MSG_FORK);
+}
+
+static void	philo_eat(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->lock);
+	philo->time_eaten = time_get();
+	pthread_mutex_unlock(&philo->lock);
+	message(philo, MSG_EAT);
+	sleep_for(philo, philo->program->input.time_to_eat);
+	philo->amount_eaten += 1;
+	pthread_mutex_unlock(&philo->program->forks[left_index(philo)]);
+	pthread_mutex_unlock(&philo->program->forks[right_index(philo)]);
+}
+
+static int	monitor_thread_init(t_philo *philo)
+{
+	if (pthread_create(&philo->monitor, NULL, monitor_thread, philo) != 0)
+	{
+		philo->program->philo_dead = true;
+		return (ERROR);
+	}
+	return (SUCCES);
+}
+
+static void	*single_philosopher(t_philo *philo)
+{
+	message(philo, MSG_FORK);
+	sleep_for(philo, philo->program->input.time_to_die);
+	return (NULL);
 }
 
 void	*philo_thread(void *arg)
 {
-	t_philo	*p;
+	t_philo	*philo;
 
-	p = (t_philo *)arg;
-	//_thread_identify(*p);
-	//usleep(200 * p->index + 1000 * (p->index % 2));
-	while (!philo_is_done(p))
+	philo = arg;
+	if (philo->program->input.amount_philo == 1)
+		return (single_philosopher(philo));
+	if (philo->id % 2 == 0)
+		usleep(1000);
+	philo->time_eaten = time_get();
+	if (monitor_thread_init(philo) == ERROR)
+		return (NULL);
+	while (true)
 	{
-		philo_grab_forks(p);
-		if (philo_check_death(p))
+		if (philo->program->philo_dead)
 			break ;
-		philo_eat(p);
-		if (philo_is_done(p))
+		philo_grab_forks(philo);
+		philo_eat(philo);
+		if (philo->amount_eaten == philo->program->input.amount_to_eat)
 			break ;
-		philo_sleep(p);
-		if (philo_check_death(p))
-			break ;
-		philo_msg_send(p, MSG_THINKING);
+		message(philo, MSG_SLEEP);
+		sleep_for(philo, philo->program->input.time_to_sleep);
+		message(philo, MSG_THINK);
+		usleep(1000);
 	}
-	philo_drop_forks(p);
+	philo->status = inactive;
+	pthread_join(philo->monitor, NULL);
 	return (NULL);
-}
-
-t_bool	philo_threads_start(t_program *program)
-{
-	int		i;
-	t_ul	start_time;
-
-	i = 0;
-	start_time = time_start_get();
-	while (i < program->numb_philo)
-	{
-		program->philos[i].time_eaten = start_time;
-		if (pthread_create(&program->philos[i].thread, NULL,
-			&philo_thread, &program->philos[i]) != 0)
-			return (FALSE);
-		i++;
-	}
-	return (TRUE);
-}
-
-t_bool	philo_threads_join(t_program *program)
-{
-	int	i;
-
-	i = 0;
-	while (i < program->numb_philo)
-	{
-		if (pthread_join(program->philos[i].thread, NULL) != 0)
-			return (FALSE);
-		i++;
-	}
-	return (TRUE);
 }

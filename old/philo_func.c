@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/26 17:24:49 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/01/26 18:28:06 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/01 15:52:27 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	philo_usleep(t_philo *p, t_ul usec)
 	t_ul	time_start;
 
 	usec *= 1000;
-	while (usec > 5000)
+	while (usec > 2000)
 	{
 		time_start = time_get_usec();
-		usleep(5000);
+		usleep(2000);
 		time_actually_slept = time_get_usec() - time_start;
 		if (usec > time_actually_slept)
 			usec -= time_actually_slept;
