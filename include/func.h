@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   str.c                                              :+:    :+:            */
+/*   func.h                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/17 11:04:08 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/11/17 11:44:10 by ngerrets      ########   odam.nl         */
+/*   Created: 2022/01/26 16:09:39 by ngerrets      #+#    #+#                 */
+/*   Updated: 2022/01/26 16:10:07 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str.h"
+#ifndef FUNC_H
+# define FUNC_H
 
-void	putstr(const char *str)
-{
-	int	l;
+# include <stdlib.h>
 
-	l = 0;
-	while (str[l] != '\0')
-		l++;
-	write(STDOUT_FILENO, str, l * sizeof(char));
-}
+void	*alloc_size(unsigned long size);
+
+#endif

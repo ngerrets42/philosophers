@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   philo_functions.c                                  :+:    :+:            */
+/*   func.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/24 10:51:11 by ngerrets      #+#    #+#                 */
-/*   Updated: 2021/11/24 16:37:17 by ngerrets      ########   odam.nl         */
+/*   Created: 2022/01/26 16:08:31 by ngerrets      #+#    #+#                 */
+/*   Updated: 2022/01/26 16:29:36 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "func.h"
 
-int	mlock(pthread_mutex_t *mutex)
+void	*alloc_size(unsigned long size)
 {
-	//printf("==locking %p\n", mutex);
-	pthread_mutex_lock(mutex);
-	//printf("===locked %p\n", mutex);
-	return (1);
-}
+	void	*alloc;
+	char	*p;
 
-int	munlock(pthread_mutex_t *mutex)
-{
-	//printf("=unlocked %p\n", mutex);
-	return (pthread_mutex_unlock(mutex));
+	alloc = malloc(size);
+	if (alloc == NULL)
+		return (NULL);
+	p = (char *)alloc;
+	while (size > 0)
+	{
+		*p = 0;
+		size--;
+		p++;
+	}
+	return (alloc);
 }
