@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 16:06:01 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:37:47 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/09 14:53:33 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "str.h"
 
 # define SLEEP_CONSTANT 1000
+# define MONITOR_SLEEP_CONSTANT 1000
 
 /* message.c */
 void			message(t_philo *philo, t_msg msg);

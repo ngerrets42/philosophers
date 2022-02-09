@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:52 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:36:33 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/09 14:56:31 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static void	_grab_forks(t_philo *philo)
 {
 	int	fork[2];
 
-	if (philo->id % 2 == 0)
+	if (philo->index % 2 == 0)
 	{
 		fork[0] = neighbour_id(philo);
-		fork[1] = philo->id;
+		fork[1] = philo->index;
 	}
 	else
 	{
-		fork[0] = philo->id;
+		fork[0] = philo->index;
 		fork[1] = neighbour_id(philo);
 	}
 	pthread_mutex_lock(&philo->program->forks[fork[0]]);
@@ -32,28 +32,28 @@ static void	_grab_forks(t_philo *philo)
 	message(philo, MSG_FORK);
 }
 
+t_input	_input(t_philo *philo)
+{
+	return (philo->program->input);
+}
+
 static void	_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->lock);
 	philo->time_eaten = time_get();
 	pthread_mutex_unlock(&philo->lock);
 	message(philo, MSG_EAT);
-	sleep_for(philo, philo->program->input.time_to_eat);
 	philo->amount_eaten += 1;
-	pthread_mutex_unlock(&philo->program->forks[philo->id]);
+	sleep_for(philo, _input(philo).time_to_eat);
+	pthread_mutex_unlock(&philo->program->forks[philo->index]);
 	pthread_mutex_unlock(&philo->program->forks[neighbour_id(philo)]);
 }
 
 static void	*_single(t_philo *philo)
 {
 	message(philo, MSG_FORK);
-	sleep_for(philo, philo->program->input.time_to_die);
+	sleep_for(philo, _input(philo).time_to_die);
 	return (NULL);
-}
-
-t_input	_input(t_philo *philo)
-{
-	return (philo->program->input);
 }
 
 void	*philo_thread(void *arg)
@@ -63,7 +63,7 @@ void	*philo_thread(void *arg)
 	p = arg;
 	if (_input(p).nphilo == 1)
 		return (_single(p));
-	if (p->id % 2 != 0)
+	if (p->index % 2 != 0)
 		usleep(1000);
 	if (monitor_thread_init(p) == ERROR)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:39 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:37:47 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/09 14:53:25 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ int	monitor_thread_init(t_philo *philo)
 	return (SUCCES);
 }
 
+static bool	_check_eaten_enough(t_philo *p)
+{
+	if (p->program->input.amount_to_eat >= p->amount_eaten)
+		return (true);
+	return (false);
+}
+
 void	*monitor_thread(void *arg)
 {
 	t_philo	*p;
@@ -29,13 +36,13 @@ void	*monitor_thread(void *arg)
 	p = arg;
 	while (true)
 	{
-		if (philo_check_death(p) > 0)
+		if (philo_check_death(p) > 0 || _check_eaten_enough(p))
 			break ;
 		pthread_mutex_lock(&p->lock);
 		if (time_diff(p->time_eaten) >= p->program->input.time_to_die)
 			message(p, MSG_DEAD);
 		pthread_mutex_unlock(&p->lock);
-		usleep(1000);
+		usleep(MONITOR_SLEEP_CONSTANT);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 16:05:56 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:36:33 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/09 14:56:31 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_program	t_program;
 
 typedef struct s_philo
 {
-	int				id;
+	int				index;
 	t_program		*program;
 	pthread_mutex_t	lock;
 	struct timeval	time_eaten;

@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:46 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:36:33 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/09 14:56:31 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	mutexes_init(t_program *program)
 	i = 0;
 	while (i < program->input.nphilo)
 	{
-		program->philos[i].id = i;
+		program->philos[i].index = i;
 		program->philos[i].program = program;
 		program->philos[i].amount_eaten = 0;
 		if (pthread_mutex_init(&program->forks[i], NULL) != 0)
