@@ -5,42 +5,39 @@
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/24 14:58:49 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/01 16:58:23 by ngerrets      ########   odam.nl         */
+/*   Created: 2022/02/02 17:57:12 by ngerrets      #+#    #+#                 */
+/*   Updated: 2022/02/09 14:28:36 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "str.h"
+#include "str.h"
 
-static int	ft_isdigit(int c)
+static int	_isspace(int c)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	return ((c >= 9 && c <= 13) || c == 32);
 }
 
-int	ft_atoi(const char *str)
+static int	_isdigit(int c)
 {
-	int		negative;
-	int		nbr;
-	size_t	i;
+	return (c >= '0' && c <= '9');
+}
 
-	negative = 1;
-	nbr = 0;
-	i = 0;
-	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
-		i++;
-	if (str[i] == '-')
-		negative = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] != '\0')
+int	ft_atoi(char *str)
+{
+	int	sign;
+	int	n;
+
+	while (_isspace(*str))
+		str++;
+	sign = (*str == '-');
+	str += (*str == '+' || *str == '-');
+	n = 0;
+	while (_isdigit(*str))
 	{
-		if (ft_isdigit(str[i]) == 0)
-			return (nbr * negative);
-		nbr *= 10;
-		nbr += str[i] - '0';
-		i++;
+		n = (n * 10) + (*str - '0');
+		str++;
 	}
-	return (nbr * negative);
+	if (sign)
+		return (-n);
+	return (n);
 }

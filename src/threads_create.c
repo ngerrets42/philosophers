@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   threads_create.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
+/*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/06/08 08:53:09 by mraasvel      #+#    #+#                 */
-/*   Updated: 2022/02/01 16:50:19 by ngerrets      ########   odam.nl         */
+/*   Created: 2022/02/02 17:57:02 by ngerrets      #+#    #+#                 */
+/*   Updated: 2022/02/09 14:38:13 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ int	threads_create(t_program *program)
 
 	i = 0;
 	program->start = false;
-	while (i < program->input.amount_philo)
+	while (i < program->input.nphilo)
 	{
-		program->philos[i].status = active;
 		if (pthread_create(&program->threads[i], NULL,
-			philo_thread, &program->philos[i]) != 0)
+				philo_thread, &program->philos[i]) != 0)
 			return (_abort(program, i));
 		usleep(100);
 		i++;
@@ -48,7 +47,7 @@ int	threads_join(t_program *program)
 	int	i;
 
 	i = 0;
-	while (i < program->input.amount_philo)
+	while (i < program->input.nphilo)
 	{
 		if (pthread_join(program->threads[i], NULL) != 0)
 			return (ERROR);

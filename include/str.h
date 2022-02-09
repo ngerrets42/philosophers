@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   philo_util.c                                       :+:    :+:            */
+/*   str.h                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/02 17:56:57 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:36:33 by ngerrets      ########   odam.nl         */
+/*   Created: 2022/02/09 14:28:12 by ngerrets      #+#    #+#                 */
+/*   Updated: 2022/02/09 14:28:42 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#ifndef STR_H
+# define STR_H
 
-int	philo_check_death(t_philo *philo)
-{
-	int	dead;
+int		ft_atoi(char *s);
+char	*ft_itoa(int n);
 
-	pthread_mutex_lock(&philo->program->lock);
-	dead = philo->program->philo_dead;
-	pthread_mutex_unlock(&philo->program->lock);
-	return (dead);
-}
-
-int	neighbour_id(t_philo *philo)
-{
-	int	index;
-
-	index = philo->id + 1;
-	if (philo->id == philo->program->input.nphilo)
-		index = 0;
-	return (index);
-}
+#endif

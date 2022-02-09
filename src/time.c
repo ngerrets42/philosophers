@@ -1,16 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   time_handling.c                                    :+:    :+:            */
+/*   time.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
+/*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/05/31 17:58:21 by mraasvel      #+#    #+#                 */
-/*   Updated: 2022/02/01 16:29:05 by ngerrets      ########   odam.nl         */
+/*   Created: 2022/02/02 17:57:36 by ngerrets      #+#    #+#                 */
+/*   Updated: 2022/02/09 14:38:54 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "philosophers.h"
 
 struct timeval	time_get(void)
@@ -21,22 +20,26 @@ struct timeval	time_get(void)
 	return (timeval);
 }
 
-long	time_difference(struct timeval start)
+long	time_diff(struct timeval start)
 {
 	struct timeval	diff;
 	long			t;
 
 	diff = time_get();
-	t = ((diff.tv_sec - start.tv_sec) * 1000 +
-		(diff.tv_usec - start.tv_usec) / 1000);
+	t = ((diff.tv_sec - start.tv_sec) * 1000
+			+ (diff.tv_usec - start.tv_usec) / 1000);
 	return (t);
 }
 
 void	sleep_for(t_philo *philo, long ms)
 {
-	struct timeval	time;
+	struct timeval	time_start;
 
-	time = time_get();
-	while (time_difference(time) < ms && !philo->program->philo_dead)
-		usleep(100);
+	time_start = time_get();
+	while (time_diff(time_start) < ms)
+	{
+		// if (philo_check_death(philo) > 0)
+		// 	return ;
+		usleep(SLEEP_CONSTANT);
+	}
 }

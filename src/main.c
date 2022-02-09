@@ -6,13 +6,13 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 16:05:22 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/01 16:52:20 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/09 14:36:33 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	free_program(t_program *program)
+static int	program_free(t_program *program)
 {
 	free(program->philos);
 	free(program->threads);
@@ -22,17 +22,17 @@ static int	free_program(t_program *program)
 
 static int	program_initialize(t_program *program)
 {
-	program->philos = malloc(program->input.amount_philo * sizeof(t_philo));
+	program->philos = malloc(program->input.nphilo * sizeof(t_philo));
 	if (program->philos == NULL)
 		return (ERROR);
-	program->forks = malloc(program->input.amount_philo * sizeof(pthread_mutex_t));
+	program->forks = malloc(program->input.nphilo * sizeof(pthread_mutex_t));
 	if (program->forks == NULL)
-		return (free_program(program));
-	program->threads = malloc(program->input.amount_philo * sizeof(pthread_t));
+		return (program_free(program));
+	program->threads = malloc(program->input.nphilo * sizeof(pthread_t));
 	if (program->threads == NULL)
-		return (free_program(program));
+		return (program_free(program));
 	if (mutexes_init(program) == ERROR)
-		return (free_program(program));
+		return (program_free(program));
 	program->start_time = time_get();
 	return (SUCCES);
 }
@@ -40,15 +40,28 @@ static int	program_initialize(t_program *program)
 static int	program_exit(t_program *program, int exit_status)
 {
 	mutexes_destroy(program);
-	free_program(program);
+	program_free(program);
 	return (exit_status);
+}
+
+static void	_bzero(void *dst, size_t size)
+{
+	unsigned char	*d;
+
+	d = dst;
+	while (size > 0)
+	{
+		*d = 0;
+		d++;
+		size--;
+	}
 }
 
 int	main(int argc, char **argv)
 {
 	t_program	program;
 
-	ft_bzero(&program, sizeof(t_program));
+	_bzero(&program, sizeof(t_program));
 	if (parse_input(&program.input, argc, argv) == ERROR)
 		return (ERROR);
 	if (program_initialize(&program) == ERROR)

@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 16:06:01 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/01 16:57:14 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/09 14:37:47 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,47 +18,38 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include "structs.h"
+# include "str.h"
 
-/* Other Functions */
+# define SLEEP_CONSTANT 1000
 
-int				parse_input(t_input *input, int argc, char **argv);
+/* message.c */
 void			message(t_philo *philo, t_msg msg);
 
-/* Philo Routine Functions */
-
-void			*philo_thread(void *arg);
+/* monitor.c */
+int				monitor_thread_init(t_philo *philo);
 void			*monitor_thread(void *arg);
 
-int				right_index(t_philo *philo);
-int				left_index(t_philo *philo);
-
-/* Thread Functions */
-
-void			monitor_threads(t_program *program);
-int				threads_create(t_program *program);
-int				threads_join(t_program *program);
-
-/* Mutex Functions */
-
+/* mutexes.c */
 int				mutexes_init(t_program *program);
 void			mutexes_destroy(t_program *program);
 
-/* Time Functions */
+/* parse.c */
+int				parse_input(t_input *input, int argc, char **argv);
 
-void			sleep_for(t_philo *philo, long ms);
-void			philo_wait(t_philo *philo, long ms);
-long			time_difference(struct timeval start);
+/* philo_thread.c */
+void			*philo_thread(void *arg);
+
+/* philo_util.c */
+int				philo_check_death(t_philo *philo);
+int				neighbour_id(t_philo *philo);
+
+/* threads_create.c */
+int				threads_create(t_program *program);
+int				threads_join(t_program *program);
+
+/* time.c */
 struct timeval	time_get(void);
-
-/* Utillity Functions */
-
-int				ft_atoi(char *s);
-char			*ft_itoa(int n);
-void			ft_bzero(void *dst, size_t size);
-int				ft_strcmp(char *a, char *b);
-int				ft_error(char *a, char *b);
-int				ft_perror(char *s);
-void			ft_swap_int(int *a, int *b);
-int				ft_putstr_fd(int fd, char *str);
+long			time_diff(struct timeval start);
+void			sleep_for(t_philo *philo, long ms);
 
 #endif

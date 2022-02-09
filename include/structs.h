@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 16:05:56 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/01 16:39:28 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/09 14:36:33 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef struct s_program	t_program;
-
 typedef enum e_msg
 {
 	MSG_EAT,
@@ -30,31 +28,24 @@ typedef enum e_msg
 	MSG_DEAD
 }	t_msg;
 
-typedef enum e_status
-{
-	active,
-	inactive,
-	joined
-}	t_status;
-
 typedef struct s_input
 {
-	int	amount_philo;
+	int	nphilo;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	amount_to_eat;
-}	t_input;
+}		t_input;
+
+typedef struct s_program	t_program;
 
 typedef struct s_philo
 {
 	int				id;
 	t_program		*program;
-	pthread_mutex_t	search_lock;
 	pthread_mutex_t	lock;
 	struct timeval	time_eaten;
 	int				amount_eaten;
-	enum e_status	status;
 	pthread_t		monitor;
 }					t_philo;
 

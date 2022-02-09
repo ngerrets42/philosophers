@@ -1,12 +1,11 @@
 SOURCES :=	src/main.c \
-	src/monitor_thread.c \
+	src/message.c \
+	src/monitor.c \
 	src/mutexes.c \
+	src/parse.c \
 	src/philo_thread.c \
 	src/philo_util.c \
-	src/shared/ft_atoi.c \
-	src/shared/ft_itoa.c \
-	src/shared/get_input.c \
-	src/shared/print_msg.c \
-	src/shared/time_handling.c \
-	src/shared/utils.c \
+	src/str/ft_atoi.c \
+	src/str/ft_itoa.c \
 	src/threads_create.c \
+	src/time.c \

@@ -3,16 +3,17 @@
 /*                                                        ::::::::            */
 /*   ft_itoa.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mraasvel <mraasvel@student.codam.nl>         +#+                     */
+/*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/06/01 10:40:18 by mraasvel      #+#    #+#                 */
-/*   Updated: 2021/06/08 14:45:09 by mraasvel      ########   odam.nl         */
+/*   Created: 2022/02/02 17:57:21 by ngerrets      #+#    #+#                 */
+/*   Updated: 2022/02/09 14:29:28 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "str.h"
 #include <stdlib.h>
 
-static int	ft_numlen(int n)
+static int	_length(int n)
 {
 	int	len;
 
@@ -27,38 +28,33 @@ static int	ft_numlen(int n)
 	return (len);
 }
 
-static void	get_digits(char *str, unsigned int n)
+static void	_set_digits(char *str, int n)
 {
 	if (n == 0)
 		*str = '0';
 	while (n != 0)
 	{
 		*str = n % 10 + '0';
-		str--;
 		n = n / 10;
+		str--;
 	}
 }
-
-/*
-Return NULL on error
-Otherwise returned string should be freed by caller
-*/
 
 char	*ft_itoa(int n)
 {
 	char	*str;
 	int		len;
 
-	len = ft_numlen(n) + 1;
-	str = malloc(len * sizeof(char));
+	len = _length(n);
+	str = malloc((len + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
-	str[len - 1] = '\0';
+	str[len] = '\0';
 	if (n < 0)
 	{
 		str[0] = '-';
 		n = -n;
 	}
-	get_digits(str + len - 2, n);
+	_set_digits(str + len - 1, n);
 	return (str);
 }
