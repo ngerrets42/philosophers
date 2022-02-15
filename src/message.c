@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:57:30 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 12:48:59 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 12:49:50 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	message(t_philo *philo, t_msg msg)
 	pthread_mutex_lock(&philo->program->lock);
 	if (!philo->program->philo_dead)
 	{
-		printf("[%ld] Philosopher %d %s\n",
+		printf("%ld Philosopher %d %s\n",
 			time_diff(philo->program->start_time), philo->index + 1, str[msg]);
 		if (msg == MSG_DEAD)
 			philo->program->philo_dead = true;
