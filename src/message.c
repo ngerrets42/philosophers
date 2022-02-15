@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:57:30 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:56:31 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 12:39:19 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	message(t_philo *philo, t_msg msg)
 {
 	static const char	*str[] = {
-	[MSG_FORK] = "has taken a fork",
+	[MSG_FORK] = "took a fork",
 	[MSG_EAT] = "is eating",
 	[MSG_SLEEP] = "is sleeping",
 	[MSG_THINK] = "is thinking",

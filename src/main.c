@@ -6,13 +6,13 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 16:05:22 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:36:33 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 12:38:09 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	program_free(t_program *program)
+static int	_free_and_return_err(t_program *program)
 {
 	free(program->philos);
 	free(program->threads);
@@ -27,12 +27,12 @@ static int	program_initialize(t_program *program)
 		return (ERROR);
 	program->forks = malloc(program->input.nphilo * sizeof(pthread_mutex_t));
 	if (program->forks == NULL)
-		return (program_free(program));
+		return (_free_and_return_err(program));
 	program->threads = malloc(program->input.nphilo * sizeof(pthread_t));
 	if (program->threads == NULL)
-		return (program_free(program));
+		return (_free_and_return_err(program));
 	if (mutexes_init(program) == ERROR)
-		return (program_free(program));
+		return (_free_and_return_err(program));
 	program->start_time = time_get();
 	return (SUCCES);
 }
@@ -40,7 +40,7 @@ static int	program_initialize(t_program *program)
 static int	program_exit(t_program *program, int exit_status)
 {
 	mutexes_destroy(program);
-	program_free(program);
+	_free_and_return_err(program);
 	return (exit_status);
 }
 

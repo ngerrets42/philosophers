@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:52 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:56:31 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 12:41:29 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	_grab_forks(t_philo *philo)
 	message(philo, MSG_FORK);
 }
 
-t_input	_input(t_philo *philo)
+static t_input	_input(t_philo *philo)
 {
 	return (philo->program->input);
 }

@@ -6,13 +6,13 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:57:02 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:38:13 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 12:42:42 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	_abort(t_program *program, int i)
+static int	_abort_return_err(t_program *program, int i)
 {
 	program->philo_dead = true;
 	while (i > 0)
@@ -33,7 +33,7 @@ int	threads_create(t_program *program)
 	{
 		if (pthread_create(&program->threads[i], NULL,
 				philo_thread, &program->philos[i]) != 0)
-			return (_abort(program, i));
+			return (_abort_return_err(program, i));
 		usleep(100);
 		i++;
 	}

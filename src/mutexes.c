@@ -6,13 +6,13 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:46 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:56:31 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 12:43:03 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	_abort(t_program *program, int i)
+static int	_abort_return_error(t_program *program, int i)
 {
 	pthread_mutex_destroy(&program->forks[i]);
 	while (i > 0)
@@ -35,13 +35,13 @@ int	mutexes_init(t_program *program)
 		program->philos[i].program = program;
 		program->philos[i].amount_eaten = 0;
 		if (pthread_mutex_init(&program->forks[i], NULL) != 0)
-			return (_abort(program, i));
+			return (_abort_return_error(program, i));
 		else if (pthread_mutex_init(&program->philos[i].lock, NULL) != 0)
-			return (_abort(program, i));
+			return (_abort_return_error(program, i));
 		i++;
 	}
 	if (pthread_mutex_init(&program->lock, NULL) != 0)
-		return (_abort(program, i + 1));
+		return (_abort_return_error(program, i + 1));
 	return (SUCCES);
 }
 

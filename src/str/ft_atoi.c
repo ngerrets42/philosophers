@@ -6,18 +6,18 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:57:12 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:28:36 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 12:35:42 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "str.h"
 
-static int	_isspace(int c)
+static int	_isspace(char c)
 {
 	return ((c >= 9 && c <= 13) || c == 32);
 }
 
-static int	_isdigit(int c)
+static int	_isdigit(char c)
 {
 	return (c >= '0' && c <= '9');
 }
