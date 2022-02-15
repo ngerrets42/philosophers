@@ -6,12 +6,16 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:46 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 12:43:03 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 13:16:27 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*
+**	In case of ERROR this function destroys previously made mutexes.
+**	Always returns ERROR for ease.
+*/
 static int	_abort_return_error(t_program *program, int i)
 {
 	pthread_mutex_destroy(&program->forks[i]);
@@ -24,6 +28,9 @@ static int	_abort_return_error(t_program *program, int i)
 	return (ERROR);
 }
 
+/*
+**	Creates all the mutexes neccesary. (the forks and write/read locks)
+*/
 int	mutexes_init(t_program *program)
 {
 	int	i;
@@ -45,6 +52,9 @@ int	mutexes_init(t_program *program)
 	return (SUCCES);
 }
 
+/*
+**	Destroyes all Mutexes.
+*/
 void	mutexes_destroy(t_program *program)
 {
 	int	i;

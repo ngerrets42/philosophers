@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 16:06:01 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:53:33 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 13:26:57 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # include "structs.h"
 # include "str.h"
 
+/*
+**	Constants to define how long the "sleep_for" function and the monitor must
+**	usleep.
+*/
 # define SLEEP_CONSTANT 1000
 # define MONITOR_SLEEP_CONSTANT 1000
 
@@ -42,7 +46,7 @@ void			*philo_thread(void *arg);
 
 /* philo_util.c */
 int				philo_check_death(t_philo *philo);
-int				neighbour_id(t_philo *philo);
+int				neighbour_index(t_philo *philo);
 
 /* threads_create.c */
 int				threads_create(t_program *program);
@@ -51,6 +55,6 @@ int				threads_join(t_program *program);
 /* time.c */
 struct timeval	time_get(void);
 long			time_diff(struct timeval start);
-void			sleep_for(t_philo *philo, long ms);
+void			sleep_for(t_philo *philo, long usec);
 
 #endif

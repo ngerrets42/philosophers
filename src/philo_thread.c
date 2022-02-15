@@ -6,25 +6,32 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:52 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 12:41:29 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 13:12:23 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*
+**	mutex lock two forks in a determined order.
+**	If index is even you grab the right then the left.
+**	else you grab the left and then the right.
+**
+**	This is to avoid dead locks.
+*/
 static void	_grab_forks(t_philo *philo)
 {
 	int	fork[2];
 
 	if (philo->index % 2 == 0)
 	{
-		fork[0] = neighbour_id(philo);
+		fork[0] = neighbour_index(philo);
 		fork[1] = philo->index;
 	}
 	else
 	{
 		fork[0] = philo->index;
-		fork[1] = neighbour_id(philo);
+		fork[1] = neighbour_index(philo);
 	}
 	pthread_mutex_lock(&philo->program->forks[fork[0]]);
 	message(philo, MSG_FORK);
@@ -32,11 +39,18 @@ static void	_grab_forks(t_philo *philo)
 	message(philo, MSG_FORK);
 }
 
+/*
+**	quick way to get the input struct from program. Kinda unneccesary.
+*/
 static t_input	_input(t_philo *philo)
 {
 	return (philo->program->input);
 }
 
+/*
+**	function to initiate eating face of a philosopher.
+**	Updates its eat time, times eaten and sleeps before releasing the forks.
+*/
 static void	_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->lock);
@@ -46,9 +60,13 @@ static void	_eat(t_philo *philo)
 	philo->amount_eaten += 1;
 	sleep_for(philo, _input(philo).time_to_eat);
 	pthread_mutex_unlock(&philo->program->forks[philo->index]);
-	pthread_mutex_unlock(&philo->program->forks[neighbour_id(philo)]);
+	pthread_mutex_unlock(&philo->program->forks[neighbour_index(philo)]);
 }
 
+/*
+**	Edgecase when only one philosopher is present.
+**	It just waits to die from loneliness.
+*/
 static void	*_single(t_philo *philo)
 {
 	message(philo, MSG_FORK);
@@ -56,6 +74,11 @@ static void	*_single(t_philo *philo)
 	return (NULL);
 }
 
+/*
+**	Main thread of the philosopher.
+**	Handles it's main loop of eating, sleeping and thinking as well as
+**	creating and joining it's monitoring thread. (which checks for death)
+*/
 void	*philo_thread(void *arg)
 {
 	t_philo	*p;

@@ -6,12 +6,16 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:57:02 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 12:42:42 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 13:04:24 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*
+**	In case of ERROR this function waits for all already made threads to close
+**	before returning ERROR.
+*/
 static int	_abort_return_err(t_program *program, int i)
 {
 	program->philo_dead = true;
@@ -23,6 +27,9 @@ static int	_abort_return_err(t_program *program, int i)
 	return (ERROR);
 }
 
+/*
+**	Creates all philosopher threads and sets the start time of the program.
+*/
 int	threads_create(t_program *program)
 {
 	int	i;
@@ -42,6 +49,9 @@ int	threads_create(t_program *program)
 	return (SUCCES);
 }
 
+/*
+**	Waits for all threads to end (join).
+*/
 int	threads_join(t_program *program)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:57:26 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:36:33 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 13:14:31 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ static int	_strcmp(char *str1, char *str2)
 	return (0);
 }
 
+/*
+**	A rather simple way of parsing numerical input.
+**	It checks if atoi and itoa are practically the same to filter out garbage.
+*/
 static int	_argument(int *output, char *src)
 {
 	int		n;
@@ -45,6 +49,9 @@ static int	_argument(int *output, char *src)
 	return (SUCCES);
 }
 
+/*
+**	Simply parses and checks all of the arguments into input struct.
+*/
 int	parse_input(t_input *input, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)

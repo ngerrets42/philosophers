@@ -6,13 +6,18 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:57:30 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 12:49:50 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 13:21:25 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdio.h>
 
+/*
+**	Function that handles sending messages one by one using a mutex.
+**	It is also practically responsible for telling the program to stop when a
+**	philosopher dies.
+*/
 void	message(t_philo *philo, t_msg msg)
 {
 	static const char	*str[] = {

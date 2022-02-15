@@ -6,12 +6,16 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:57 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/09 14:56:31 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 13:06:45 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*
+**	Checks the philo_dead variable. Nothing special except for a mutex lock to
+**	avoid data-races.
+*/
 int	philo_check_death(t_philo *philo)
 {
 	int	dead;
@@ -22,7 +26,11 @@ int	philo_check_death(t_philo *philo)
 	return (dead);
 }
 
-int	neighbour_id(t_philo *philo)
+/*
+**	gets the index of the neighbour of giveb philosopher.
+**	-	the neighbour is the one that's virtually on the right.
+*/
+int	neighbour_index(t_philo *philo)
 {
 	int	index;
 

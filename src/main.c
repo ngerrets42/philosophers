@@ -6,12 +6,15 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 16:05:22 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 12:38:09 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/15 13:25:47 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*
+**	Simply free allocated philosphers, threads and forks before returning error.
+*/
 static int	_free_and_return_err(t_program *program)
 {
 	free(program->philos);
@@ -20,6 +23,9 @@ static int	_free_and_return_err(t_program *program)
 	return (ERROR);
 }
 
+/*
+**	Allocate memory, create mutexes and error/free when something goes wrong.
+*/
 static int	program_initialize(t_program *program)
 {
 	program->philos = malloc(program->input.nphilo * sizeof(t_philo));
@@ -37,6 +43,10 @@ static int	program_initialize(t_program *program)
 	return (SUCCES);
 }
 
+/*
+**	Exit and return exit_status (to easily use withing a "return" statement).
+**	It destroys all mutexes and frees memory.
+*/
 static int	program_exit(t_program *program, int exit_status)
 {
 	mutexes_destroy(program);

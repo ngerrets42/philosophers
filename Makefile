@@ -6,7 +6,7 @@
 #    By: ngerrets <ngerrets@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/07/15 14:47:03 by ngerrets      #+#    #+#                  #
-#    Updated: 2022/02/07 17:54:51 by ngerrets      ########   odam.nl          #
+#    Updated: 2022/02/15 12:53:59 by ngerrets      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,10 @@ MAKE_BONUS = 0
 # Don't manually edit:
 SOURCES :=
 include sources.mk
+HEADERS :=
+include headers.mk
 
-HEADERS	:= $(shell find $(HEADER_DIRECTORY) -type f -name *.h)
+# HEADERS	:= $(shell find $(HEADER_DIRECTORY) -type f -name *.h)
 INCLUDES := $(patsubst %,-I%,$(dir $(HEADERS)))
 OBJECTS := $(patsubst %,$(OBJECTS_DIRECTORY)/%,$(SOURCES:.c=.o))
 NAME := $(BINARIES_DIRECTORY)/$(NAME)
