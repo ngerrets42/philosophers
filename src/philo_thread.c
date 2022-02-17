@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:52 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 13:12:23 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/17 11:32:44 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void	*_single(t_philo *philo)
 {
 	message(philo, MSG_FORK);
 	sleep_for(philo, _input(philo).time_to_die);
+	message(philo, MSG_DEAD);
 	return (NULL);
 }
 
