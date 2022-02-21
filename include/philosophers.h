@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/01 16:06:01 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 13:26:57 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/21 12:18:08 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int				threads_join(t_program *program);
 /* time.c */
 struct timeval	time_get(void);
 long			time_diff(struct timeval start);
-void			sleep_for(t_philo *philo, long usec);
+void			sleep_for(long usec);
 
 #endif

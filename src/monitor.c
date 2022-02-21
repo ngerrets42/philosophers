@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:39 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 13:31:22 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/21 12:21:58 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ int	monitor_thread_init(t_philo *philo)
 */
 static bool	_check_eaten_enough(t_philo *p)
 {
+	bool	enough;
+
+	enough = false;
+	pthread_mutex_lock(&p->lock);
 	if (p->program->input.amount_to_eat >= p->amount_eaten)
-		return (true);
-	return (false);
+		enough = true;
+	pthread_mutex_unlock(&p->lock);
+	return (enough);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:52 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/17 11:32:44 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/21 12:20:20 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ static void	_eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->lock);
 	philo->time_eaten = time_get();
+	philo->amount_eaten += 1;
 	pthread_mutex_unlock(&philo->lock);
 	message(philo, MSG_EAT);
-	philo->amount_eaten += 1;
-	sleep_for(philo, _input(philo).time_to_eat);
+	sleep_for(_input(philo).time_to_eat);
 	pthread_mutex_unlock(&philo->program->forks[philo->index]);
 	pthread_mutex_unlock(&philo->program->forks[neighbour_index(philo)]);
 }
@@ -70,7 +70,7 @@ static void	_eat(t_philo *philo)
 static void	*_single(t_philo *philo)
 {
 	message(philo, MSG_FORK);
-	sleep_for(philo, _input(philo).time_to_die);
+	sleep_for(_input(philo).time_to_die);
 	message(philo, MSG_DEAD);
 	return (NULL);
 }
@@ -99,7 +99,7 @@ void	*philo_thread(void *arg)
 		if (p->amount_eaten == _input(p).amount_to_eat)
 			break ;
 		message(p, MSG_SLEEP);
-		sleep_for(p, _input(p).time_to_sleep);
+		sleep_for(_input(p).time_to_sleep);
 		message(p, MSG_THINK);
 	}
 	pthread_join(p->monitor, NULL);

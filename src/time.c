@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:57:36 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 13:01:44 by ngerrets      ########   odam.nl         */
+/*   Updated: 2022/02/21 12:18:00 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ long	time_diff(struct timeval start)
 **	Checking for philosopher death during sleep seems unneccesary.
 **	" if (philo_check_death(philo) > 0) "
 */
-void	sleep_for(t_philo *philo, long usec)
+void	sleep_for(long usec)
 {
 	struct timeval	time_start;
 
