@@ -6,7 +6,7 @@
 #    By: ngerrets <ngerrets@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/07/15 14:47:03 by ngerrets      #+#    #+#                  #
-#    Updated: 2022/02/21 12:24:37 by ngerrets      ########   odam.nl          #
+#    Updated: 2022/02/21 12:27:39 by ngerrets      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,6 @@ SOURCE_DIRECTORY ?= src
 HEADER_DIRECTORY ?= include
 OBJECTS_DIRECTORY ?= objects
 BINARIES_DIRECTORY ?= .
-
-MAKE_BONUS = 0
 
 # Don't manually edit:
 SOURCES :=
@@ -51,10 +49,10 @@ $(BINARIES_DIRECTORY):
 $(OBJECTS_DIRECTORY)/%.o: %.c $(HEADERS)
 	@echo "Compiling: $@"
 	@mkdir -p $(@D)
-	@$(CC) -DBONUS=$(MAKE_BONUS) $(COMPILE_FLAGS) $(INCLUDES) -c -o $@ $<
+	@$(CC) $(COMPILE_FLAGS) $(INCLUDES) -c -o $@ $<
 
 # Clean objects
-clean: cleandeps
+clean:
 	@rm -Rf $(OBJECTS_DIRECTORY)
 	@echo "Objects cleaned."
 
@@ -77,8 +75,4 @@ print:
 	@echo "---SOURCES: $(SOURCES)" | xargs -n1
 	@echo "---OBJECTS: $(OBJECTS)" | xargs -n1
 
-# In case of bonus
-bonus: MAKE_BONUS = 1
-bonus: re
-
-.PHONY: all clean fclean re run print cleandeps dependencies bonus
+.PHONY: all clean fclean re run print
