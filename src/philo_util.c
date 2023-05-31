@@ -6,7 +6,7 @@
 /*   By: ngerrets <ngerrets@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/02 17:56:57 by ngerrets      #+#    #+#                 */
-/*   Updated: 2022/02/15 13:06:45 by ngerrets      ########   odam.nl         */
+/*   Updated: 2023/05/31 17:06:43 by ngerrets      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	neighbour_index(t_philo *philo)
 	int	index;
 
 	index = philo->index + 1;
-	if (philo->index == philo->program->input.nphilo)
+	if (index == philo->program->input.nphilo)
 		index = 0;
 	return (index);
 }
